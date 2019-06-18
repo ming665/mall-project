@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="Copyright" content="miHoYo">
+    <meta name="Description" content="">
+    <meta name="Keywords" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-status-bar-style" content="black-translucent">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  </head>
+  <body>
+    <div id="app">
+        <template v-if=!isError>
+            <div v-show=!searchBoardVisible>
+                <div class=header @touchmove=onHeadTouchmove>
+                    <div class="search-header-container">
+                        <i class="anticon icon-order"></i>
+                        <div class="search">
+                            <form>
+                                <i class="anticon icon-category"></i>
+                                <input readonly type="search" class="search-input" placeholder="123456789" @click=onSearchFocus />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <side-bar :list=sideList :active-index=activeIndex @click="onSideNavClick"></side-bar>
+                <div class="category-main" ref=cateMain>
+                    <div class="category-part-container" ref=cate @scroll=onScroll>
+                        <!-- 大分类下 -->
+                        <div v-for="(it, itIndex) in list" class="category-part" v-if=it.categoryLogicVOList ref=content v-show="activeIndex === itIndex"> 
+                            <div class="category-part-item" v-for="(cate, cateIndex) in it.categoryLogicVOList" >
+                                    <h5 class="category-title">{{cate.name}}</h5>
+                                     <p class=ip>去频道</p>
+                                     <ul>
+                                         <li  class="category-list" v-for="(line, index) in initImage(cate.categoryLogicVOS)">
+                                            <!-- last-child 只有2个元素且位于第2个的 -->
+                                            <!-- last-row 不满3个往上取整，得到的值等于个数 -->
+                                            <div class="category-item"  v-for="(src, srcIndex) in line" :class="{'last-child': 2 === line.length && 1 === srcIndex, 'last-row': index + 1 === Math.ceil(cate.categoryLogicVOS.length / 3)}">
+                                                <image-load :url="src.img" class="category-item-container"></image-load>
+                                                <p class="desc word-ellipsis-2">{{src.name}}</p>
+                                            </div>
+
+                                         </li>
+                                     </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav-bar active=category></nav-bar>
+            
+            
+        </template>
+        <loading v-if="isLoading"></loading>
+        <template v-if=isError>
+            <error @refresh=errorRefresh></error>
+        </template>
+        <!-- 等价于<search-board @update:visible="(bol)=>{searchBoardVisible=bol}"></search-board> -->
+        <search-board :visible.sync=searchBoardVisible ref="searchBoard"></search-board>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

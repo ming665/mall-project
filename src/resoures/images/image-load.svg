@@ -1,0 +1,15 @@
+<svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <style>.cls-1{fill:#c5c5c5;}</style>
+ </defs>
+ <title>bnr-img</title>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="404" width="584" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_1" class="cls-1" y="0" x="2" width="350" height="350"/>
+  <text transform="matrix(1,0,0,1,0,0) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" id="svg_8" y="182" x="137.164063" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">加载中...</text>
+ </g>
+</svg>
